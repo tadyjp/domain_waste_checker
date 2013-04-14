@@ -35,23 +35,26 @@ DWC.App = {
 
     chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
       // console.log(tabId, changeInfo, tab);
-      console.log(tab)
-      this.onPageAction(tab);
+      this.onPageAction(tab, "update");
     }.bind(this));
 
     chrome.tabs.onCreated.addListener(function(tabId, changeInfo, tab) {
       //console.log(tabId, changeInfo, tab);
-      console.log(tab)
-      this.onPageAction(tab);
+      this.onPageAction(tab, "create");
     }.bind(this));
 
-
+    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+      if(request && request.type === "onUserActionOnPage"){
+        this.onPageAction(sender.tab, "create");
+        sendResponse({message: "ok"})
+      }
+    }.bind(this));
   },
 
-  onPageAction: function(_tab){
-    console.log(_tab);
+  onPageAction: function(_tab, _type){
+    if(!_tab){ return false; }
     DWC.Watch.create({
-      type: 'open',
+      type: _type,
       domain: DWC.Tools.url2domain(_tab.url),
       url: _tab.url,
       title: _tab.title,
@@ -100,8 +103,6 @@ DWC.Watch = {
         _data_list.push(cursor.value)
         cursor.continue();
       }else{
-        console.log("cursor.end");
-
         _callback(this.convertStoreObject2List(_data_list));
       }
     }.bind(this);
@@ -120,7 +121,6 @@ DWC.Watch = {
     });
     var _elapse_list = [];
     for(_domain in _hash){
-      // _elapse_list.push([_domain, (_hash[_domain] / _total_elapsed).toFixed(2) - 0])
       _elapse_list.push([_domain, _hash[_domain]])
     }
     return _elapse_list;

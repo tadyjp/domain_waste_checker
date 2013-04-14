@@ -14,8 +14,6 @@ var PopupView = {
       this.configHighcharts();
     }.bind(this));
     DWC.Watch.getByToday(function(_data){
-      DWC.Tools.log(_data);
-
       this.drawGraph(_data);
     }.bind(this));
   },
@@ -67,7 +65,6 @@ var PopupView = {
             color: '#000000',
             connectorColor: '#000000',
             formatter: function() {
-              DWC.Tools.log(this);
               return '<b>'+ this.point.name +'</b>:<br> '+ this.percentage.toFixed(2) +' % (' + (this.y / 60).toFixed(0) + ' min.)';
             }
           }
