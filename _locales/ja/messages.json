@@ -1,1 +1,11 @@
-{}
+{
+  "extName": {
+    "message": "無駄ウェブ！ - Domain Waste Checker (by tady)"
+  },
+  "extDescription": {
+    "message": "「無駄ウェブ！」はあなたの1日のWeb利用の無駄時間を測定します。これで「気づいたらもう定時だ！」を防げるかも？！"
+  },
+  "i18n_popup_title": {
+    "message": "Today's Domain Waste"
+  }
+}

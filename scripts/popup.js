@@ -55,7 +55,7 @@ var PopupView = {
         text: null
       },
       tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+        pointFormat: '{series.name}',
         percentageDecimals: 1
       },
       plotOptions: {
@@ -75,7 +75,7 @@ var PopupView = {
       },
       series: [{
         type: 'pie',
-        name: 'Browser share',
+        name: 'Domain Waste',
         data: _data
       }]
     });
